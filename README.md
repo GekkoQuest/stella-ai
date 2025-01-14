@@ -1,11 +1,17 @@
+
 # Stella AI
 
-Stella AI is an AI-powered message handler that uses Google Gemini to process and respond to messages. It connects to platforms like Twitch and Discord to read incoming messages and generate relevant responses.
+Stella AI is an AI-powered message handler that processes and responds to messages using Google Gemini. It integrates with external platforms (Such as Twitch and Discord) to read incoming messages and generate contextually relevant responses.
 
 
 ## Tech Stack
 
 **Backend:** Spring Boot, Vertex AI
+
+
+## Demo
+
+![](https://i.imgur.com/XONhJKk.gif)
 
 
 ## Roadmap
