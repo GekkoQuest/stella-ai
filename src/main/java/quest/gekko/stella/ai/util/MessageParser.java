@@ -7,10 +7,9 @@ import quest.gekko.stella.ai.model.PlatformMessage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
 public class MessageParser {
 
-    public PlatformMessage parse(final String message) {
+    public static PlatformMessage parse(final String message) {
         final Pattern pattern = Pattern.compile("\\[(.*?)] (.*?): (.*)");
         final Matcher matcher = pattern.matcher(message);
 
