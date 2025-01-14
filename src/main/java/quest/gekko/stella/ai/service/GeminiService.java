@@ -2,6 +2,7 @@ package quest.gekko.stella.ai.service;
 
 import org.springframework.stereotype.Service;
 import quest.gekko.stella.ai.config.PromptProvider;
+import quest.gekko.stella.ai.model.Platform;
 import quest.gekko.stella.ai.util.MessageParser;
 import quest.gekko.stella.ai.model.PlatformMessage;
 
@@ -24,13 +25,17 @@ public class GeminiService {
     public String processMessage(final String message) {
         final PlatformMessage platformMessage = MessageParser.parse(message);
 
-        final String userId = conversationContextService.createContextKey(platformMessage.platform(), platformMessage.senderName());
-        conversationContextService.updateConversationContext(userId, platformMessage.getFullMessage());
+        final Platform platform = platformMessage.platform();
+        final String senderName = platformMessage.senderName();
+        final String fullMessage = platformMessage.getFullMessage();
 
-        final String prompt = buildPrompt(userId);
+        final String contextKey = conversationContextService.createContextKey(platform, senderName);
+        conversationContextService.updateConversationContext(contextKey, fullMessage);
+
+        final String prompt = buildPrompt(contextKey);
         final String aiResponse = aiModelService.generateResponse(prompt);
 
-        conversationContextService.updateConversationContext(userId, "AI: " + aiResponse);
+        conversationContextService.updateConversationContext(contextKey, "AI: " + aiResponse);
         return aiResponse;
     }
 
