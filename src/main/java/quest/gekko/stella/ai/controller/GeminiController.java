@@ -1,6 +1,5 @@
 package quest.gekko.stella.ai.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +11,6 @@ import quest.gekko.stella.ai.service.GeminiService;
 public class GeminiController {
     private final GeminiService geminiService;
 
-    @Autowired
     public GeminiController(final GeminiService geminiService) {
         this.geminiService = geminiService;
     }
