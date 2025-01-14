@@ -10,6 +10,7 @@ Stella AI is an AI-powered message handler that processes and responds to messag
 
 
 ## Demo
+(Click the GIF to view it in full size)
 
 ![](https://i.imgur.com/XONhJKk.gif)
 
