@@ -6,6 +6,7 @@ import quest.gekko.stella.ai.util.MessageParser;
 import quest.gekko.stella.ai.model.PlatformMessage;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GeminiService {
@@ -24,8 +25,8 @@ public class GeminiService {
         this.aiModelService = aiModelService;
     }
 
-    public String processMessage(final String rawMessage) {
-        final PlatformMessage platformMessage = messageParser.parse(rawMessage);
+    public String processMessage(final String message) {
+        final PlatformMessage platformMessage = messageParser.parse(message);
 
         final String userId = conversationContextService.createContextKey(platformMessage.platform(), platformMessage.senderName());
         conversationContextService.updateConversationContext(userId, platformMessage.getFullMessage());
@@ -37,16 +38,17 @@ public class GeminiService {
         return aiResponse;
     }
 
-    private String buildPrompt(final String userId) {
-        final List<String> context = conversationContextService.getConversationContext(userId);
-        final StringBuilder prompt = new StringBuilder(promptProvider.prompt());
+    private String buildPrompt(final String senderName) {
+        final List<String> context = conversationContextService.getConversationContext(senderName);
+
+        String prompt = promptProvider.prompt();
 
         if (!context.isEmpty()) {
-            prompt.append("\n\nConversation Context:\n");
-            prompt.append(String.join("\n", context));
+            final String contextStr = String.join("\n", context);
+            prompt += "\n\nConversation Context:\n" + contextStr;
         }
 
-        prompt.append("\nAI:");
-        return prompt.toString();
+        prompt += "\nAI:";
+        return prompt;
     }
 }
