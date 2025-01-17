@@ -19,7 +19,7 @@ Stella AI is an AI-powered message handler that processes and responds to messag
 
 ## Prerequisite
 
-- ![Google Cloud SDK](https://cloud.google.com/sdk?hl=en)
+- [Google Cloud SDK](https://cloud.google.com/sdk?hl=en)
 
 ## Deployment
 
